@@ -6,14 +6,6 @@
             "id": "c47ca018-0632-403d-bb4f-0606406d340f",
             "actions": [
                 {
-                    "name": "Mouse",
-                    "type": "Button",
-                    "id": "66191143-8d09-40b3-a83c-4b943f65e07f",
-                    "expectedControlType": "Button",
-                    "processors": "",
-                    "interactions": ""
-                },
-                {
                     "name": "Keyboard",
                     "type": "Button",
                     "id": "ca72e1bf-4fae-4c94-8706-0fd0cfad4a5c",
@@ -23,17 +15,6 @@
                 }
             ],
             "bindings": [
-                {
-                    "name": "",
-                    "id": "464f1475-9e13-412f-9882-0a3de10c037e",
-                    "path": "<Mouse>/rightButton",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "Mouse",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
                 {
                     "name": "",
                     "id": "9c75b726-ccb8-4ee7-9e57-0c9e48ac5261",

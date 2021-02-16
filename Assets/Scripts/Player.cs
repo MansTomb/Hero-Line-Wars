@@ -1,6 +1,3 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 using UnityEngine.InputSystem;
@@ -8,20 +5,10 @@ using UnityEngine.InputSystem;
 public class Player : MonoBehaviour
 {
     [SerializeField] private NavMeshAgent agent;
+    [SerializeField] private Camera playerCamera;
 
-    public void OnMouse(InputValue context)
-    {
-        RaycastHit hit;
-        Ray ray = Camera.main.ScreenPointToRay(Mouse.current.position.ReadValue());
-        
-        if (Physics.Raycast(ray, out hit)) {
-            Transform objectHit = hit.transform;
-
-            agent.SetDestination(hit.point);
-            Debug.Log(hit.point);
-        }
-    }
-
+    public void MoveTo(Vector3 destination) => agent.SetDestination(destination);
+    
     public void OnKeyboard(InputValue context)
     {
         Debug.Log("Invoked Keyboard");
