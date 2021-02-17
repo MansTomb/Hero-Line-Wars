@@ -8,4 +8,5 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/TestGameMechanicsScene.unity
     guid: 8b19099092ccb074fbcb4d6357792533
-  m_configObjects: {}
+  m_configObjects:
+    com.unity.input.settings: {fileID: 11400000, guid: 9a4c4c3cdb3cda746ba1b8fe1f405d83, type: 2}
