@@ -8,42 +8,42 @@ using UnityEngine.AI;
 public class PlayerDetector : MonoBehaviour
 {
     [SerializeField] private float distanceToFollow;
-    [SerializeField] private List<Player> players;
+    [SerializeField] private List<Hero> players;
     
-    private Player _TargetPlayer;
+    private Hero _TargetHero;
 
-    public Player Target => _TargetPlayer;
+    public Hero Target => _TargetHero;
 
     public void Awake()
     {
-        _TargetPlayer = null;
+        _TargetHero = null;
         StartCoroutine(FindClosestEnemyAndAttack());
     }
 
     private IEnumerator FindClosestEnemyAndAttack()
     {
         while (true) {
-            if (_TargetPlayer == null)
+            if (_TargetHero == null)
             {
-                _TargetPlayer = players.FirstOrDefault(PlayerInAttackRadius);
+                _TargetHero = players.FirstOrDefault(PlayerInAttackRadius);
             }
             else
             {
-                if (PlayerInAttackRadius(_TargetPlayer) == false)
+                if (PlayerInAttackRadius(_TargetHero) == false)
                 {
-                    _TargetPlayer = null;
+                    _TargetHero = null;
                 }
             }
             yield return new WaitForSeconds(1f);
         }
     }
 
-    public bool PlayerInAttackRadius(Player player)
+    public bool PlayerInAttackRadius(Hero hero)
     {
         NavMeshPath path = new NavMeshPath();
         float distanceToPlayer = float.MaxValue;
         
-        if (path.GetPathTo(transform.position, player.transform.position, -1))
+        if (path.GetPathTo(transform.position, hero.transform.position, -1))
         {
             var pathLength = path.GetPathLength();
             if (pathLength >= 0 && pathLength < distanceToPlayer)
