@@ -4,38 +4,45 @@ using UnityEngine.InputSystem;
 
 public class PlayerCamera : MonoBehaviour
 {
+    [SerializeField] private InputReader input;
+    
     [SerializeField] private Camera playerCamera;
-    [SerializeField] private Player player;
     [SerializeField] private float sensivity;
     [SerializeField] private float lockedSensivity;
+
+    private UnitSelection _UnitSelection;
     
     private Vector3 _MoveDirection = Vector3.zero;
     private Vector2 _Delta;
     
     private bool _Locked;
 
+    private void Awake()
+    {
+        _UnitSelection = GetComponent<UnitSelection>();
+
+        input.OnLock += OnLock;
+        input.OnMouseDelta += OnDelta;
+        input.OnMousePosition += OnPosition;
+        input.OnMoveOrAttack += OnMoveTo;
+    }
 
     private void Update()
     {
         MoveCamera();
     }
     
-    public void OnLock(InputValue context) => _Locked = !_Locked;
-    public void OnDelta(InputValue context) => _Delta = context.Get<Vector2>();
-    public void OnMoveTo(InputValue context)
+    public void OnLock(bool value) => _Locked = value;
+    public void OnDelta(Vector2 value) => _Delta = value;
+    public void OnPosition(Vector2 value) => _MoveDirection = _Locked ? GetMoveDirectionWhenLocked(value) : GetMoveDirection(value);
+    public void OnMoveTo()
     {
         RaycastHit hit;
         Ray ray = playerCamera.ScreenPointToRay(Mouse.current.position.ReadValue());
         
         if (Physics.Raycast(ray, out hit)) {
-            player.MoveTo(hit.point);
+            _UnitSelection.Units.ForEach(x => x.MoveTo(hit.point));
         }
-    }
-
-    public void OnPosition(InputValue context)
-    {
-        var currentPosition = context.Get<Vector2>();
-        _MoveDirection = _Locked ? GetMoveDirectionWhenLocked(currentPosition) : GetMoveDirection(currentPosition);
     }
 
     private Vector3 GetMoveDirectionWhenLocked(Vector2 currentPosition) => new Vector3(-_Delta.x, 0, -_Delta.y);
