@@ -7,6 +7,7 @@ public class UnitsList : ScriptableObject
     private readonly List<Unit> _Units = new List<Unit>();
 
     public List<Unit> Units => _Units;
+    
     public void AddUnit(Unit unit)
     {
         if (!_Units.Contains(unit))

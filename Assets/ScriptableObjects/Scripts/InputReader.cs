@@ -1,5 +1,4 @@
 ﻿using System;
-using UnityEditor.Timeline;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -25,6 +24,9 @@ public class InputReader : ScriptableObject
             ActionMap = new DefautActionMap();
             ActionMap.Enable();
         }
+
+        _ChooseHolded = false;
+        _CameraLocked = false;
         
         ActionMap.Gameplay.Choose.performed += Choose;
         ActionMap.Gameplay.LockCamera.performed += Lock;

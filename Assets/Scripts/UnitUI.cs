@@ -7,7 +7,12 @@ public class UnitUI : MonoBehaviour
 
     private void Awake()
     {
-        unit.Selected += () => selectCircle.SetActive(true);
-        unit.Unselected += () => selectCircle.SetActive(false);
+        Unselect();
+
+        unit.Selected += Selecet;
+        unit.Unselected += Unselect;
     }
+    
+    private void Unselect() => selectCircle.SetActive(false);
+    private void Selecet() => selectCircle.SetActive(true);
 }

@@ -1,21 +1,22 @@
-using System;
 using UnityEngine;
-using UnityEngine.AI;
 
-public class Enemy : MonoBehaviour
+public class Mob : Unit
 {
-    [SerializeField] private NavMeshAgent agent;
     [SerializeField] private Transform finalDestination;
+    
     [SerializeField] private PlayerDetector detector;
+    
     [SerializeField] private float attackRadius;
 
-    private void Awake()
+    protected void Awake()
     {
-        MoveToDestination();
+        belongTo.AddUnit(this);
+        
+        MoveTo(finalDestination.position);
         agent.stoppingDistance = attackRadius - 1f;
+        
+        owner = this;
     }
-
-    private void MoveToDestination() => agent.SetDestination(finalDestination.position);
 
     private void Attack()
     {
@@ -24,9 +25,11 @@ public class Enemy : MonoBehaviour
 
     private void Update()
     {
+        if (_Selected) return;
+        
         if (detector.Target != null)
             Attack();
         else
-            MoveToDestination();
+            MoveTo(finalDestination.position);
     }
 }

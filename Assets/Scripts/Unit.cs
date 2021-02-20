@@ -1,27 +1,40 @@
 ﻿using System;
 using System.Collections.Generic;
+using Mirror;
 using UnityEngine;
 using UnityEngine.AI;
 
-public abstract class Unit : MonoBehaviour
+public abstract class Unit : NetworkBehaviour
 {
     [SerializeField] protected float health;
     [SerializeField] protected NavMeshAgent agent;
-    [SerializeField] protected UnitsList ownedUnitsList;
+    
+    [SerializeField] protected UnitsList belongTo;
 
-    protected Unit _Owner;
+    public Unit owner;
+
+    protected bool _Selected;
 
     public event Action Selected;
     public event Action Unselected;
 
-    private void Awake() => ownedUnitsList.AddUnit(this);
-    private void OnDestroy() => ownedUnitsList.RemoveUnit(this);
+    private void OnDestroy() => belongTo.RemoveUnit(this);
 
-    public void Select() => Selected?.Invoke();
-    public void Unselect() => Unselected?.Invoke();
-    public List<Unit> UnitsUnderControl() => ownedUnitsList.Units;
-    public Unit Owner => _Owner;
+    public void Select()
+    {
+        _Selected = true;
+        Selected?.Invoke();
+    }
 
-    public void SetOwner(Unit owner) => _Owner = owner; 
+    public void Unselect()
+    {
+        _Selected = false;
+        Unselected?.Invoke();
+    }
+
+
+    public List<Unit> Units() => belongTo.Units;
+
+    [Command]
     public void MoveTo(Vector3 destination) => agent.SetDestination(destination);
 }
