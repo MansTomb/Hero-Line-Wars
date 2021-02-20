@@ -1,5 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
+using GameEvents;
 using Mirror;
 using UnityEngine;
 using UnityEngine.AI;
@@ -8,18 +8,27 @@ public abstract class Unit : NetworkBehaviour
 {
     [SerializeField] protected float health;
     [SerializeField] protected NavMeshAgent agent;
-    
-    [SerializeField] protected UnitsList belongTo;
+    [SerializeField] protected UnitSO unitData;
 
-    public Unit owner;
+    private UnitsList _BelongsTo;
+    private UnitsList _Enemies;
 
     protected bool _Selected;
 
+    public Unit owner;
+    
     public event Action Selected;
     public event Action Unselected;
 
-    private void OnDestroy() => belongTo.RemoveUnit(this);
+    public virtual void Init(UnitsList belongsTo, UnitsList enemies)
+    {
+        _BelongsTo = belongsTo;
+        _Enemies = enemies;
 
+        health = unitData.health;
+        agent.speed = unitData.moveSpeed;
+    }
+    
     public void Select()
     {
         _Selected = true;
@@ -31,10 +40,7 @@ public abstract class Unit : NetworkBehaviour
         _Selected = false;
         Unselected?.Invoke();
     }
-
-
-    public List<Unit> Units() => belongTo.Units;
-
+    
     [Command]
     public void MoveTo(Vector3 destination) => agent.SetDestination(destination);
 }

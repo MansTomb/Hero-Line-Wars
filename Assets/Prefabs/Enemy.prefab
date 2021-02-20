@@ -109,6 +109,7 @@ GameObject:
   - component: {fileID: 780778736424775518}
   - component: {fileID: 780778736424775509}
   - component: {fileID: 780778736424775513}
+  - component: {fileID: 4683671137149756576}
   m_Layer: 0
   m_Name: Enemy
   m_TagString: Untagged
@@ -147,6 +148,7 @@ MonoBehaviour:
   syncInterval: 0.1
   health: 0
   agent: {fileID: 780778736424775509}
+  unitData: {fileID: 11400000, guid: f8a0d05e832e64044bbdaf55afa9fdec, type: 2}
   belongTo: {fileID: 11400000, guid: 17f5404cebc7cc14dbca03b0e9ae917d, type: 2}
   owner: {fileID: 780778736424775514}
   finalDestination: {fileID: 0}
@@ -207,3 +209,19 @@ CharacterController:
   m_SkinWidth: 0.08
   m_MinMoveDistance: 0.001
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &4683671137149756576
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 780778736424775508}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9b91ecbcc199f4492b9a91e820070131, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sceneId: 0
+  serverOnly: 0
+  m_AssetId: 
+  hasSpawned: 0

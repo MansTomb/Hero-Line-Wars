@@ -1,5 +1,10 @@
+using GameEvents;
+using UnityEngine;
+
 public class Hero : Unit
 {
+    [SerializeField] private UnitEvent onSpawn;
+    
     private void OnEnable()
     {
         owner = this;
@@ -9,7 +14,6 @@ public class Hero : Unit
     {
         base.OnStartLocalPlayer();
         
-        belongTo.AddUnit(this);
-        UnitSelection.Player = this;
+        onSpawn.Raise(this);
     }
 }

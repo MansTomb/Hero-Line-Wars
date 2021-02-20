@@ -379,8 +379,9 @@ MonoBehaviour:
   syncInterval: 0.1
   health: 0
   agent: {fileID: 813651432939508850}
-  belongTo: {fileID: 11400000, guid: 0c52ce34859b8644ca45ffd76bc553a8, type: 2}
+  unitData: {fileID: 11400000, guid: 48cad3e7022c7034aad40d379cba6967, type: 2}
   owner: {fileID: 813651432939508852}
+  onSpawn: {fileID: 11400000, guid: a29658605d4c73a478f4b3b9d4b964db, type: 2}
 --- !u!114 &813651432939508851
 MonoBehaviour:
   m_ObjectHideFlags: 0

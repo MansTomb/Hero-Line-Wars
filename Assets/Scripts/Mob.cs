@@ -2,19 +2,21 @@ using UnityEngine;
 
 public class Mob : Unit
 {
-    [SerializeField] private Transform finalDestination;
     [SerializeField] private PlayerDetector detector;
     
     [SerializeField] private float attackRadius;
+    
+    private Transform _FinalDestination;
 
-    protected void Awake()
+    public void Init(UnitsList belongsTo, UnitsList enemies, Transform destination)
     {
-        belongTo.AddUnit(this);
-        
-        MoveTo(finalDestination.position);
+        base.Init(belongsTo, enemies);
+
         agent.stoppingDistance = attackRadius - 1f;
-        
         owner = this;
+        
+        _FinalDestination = destination;
+        MoveTo(_FinalDestination.position);
     }
 
     private void Attack()
@@ -29,6 +31,6 @@ public class Mob : Unit
         if (detector.Target != null)
             Attack();
         else
-            MoveTo(finalDestination.position);
+            MoveTo(_FinalDestination.position);
     }
 }

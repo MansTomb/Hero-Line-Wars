@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections;
 using System.Linq;
 using UnityEngine;
 using UnityEngine.AI;
@@ -8,14 +6,15 @@ using UnityEngine.AI;
 public class PlayerDetector : MonoBehaviour
 {
     [SerializeField] private float distanceToFollow;
-    [SerializeField] private List<Hero> players;
     
-    private Hero _TargetHero;
+    private UnitsList _UnitsToAttack;
+    private Unit _TargetHero;
 
-    public Hero Target => _TargetHero;
+    public Unit Target => _TargetHero;
 
-    public void Awake()
+    public void Init(UnitsList enemyUnits)
     {
+        _UnitsToAttack = enemyUnits;
         _TargetHero = null;
         StartCoroutine(FindClosestEnemyAndAttack());
     }
@@ -25,7 +24,7 @@ public class PlayerDetector : MonoBehaviour
         while (true) {
             if (_TargetHero == null)
             {
-                _TargetHero = players.FirstOrDefault(PlayerInAttackRadius);
+                _TargetHero = _UnitsToAttack.Units.FirstOrDefault(PlayerInAttackRadius);
             }
             else
             {
@@ -38,7 +37,7 @@ public class PlayerDetector : MonoBehaviour
         }
     }
 
-    public bool PlayerInAttackRadius(Hero hero)
+    public bool PlayerInAttackRadius(Unit hero)
     {
         NavMeshPath path = new NavMeshPath();
         float distanceToPlayer = float.MaxValue;
