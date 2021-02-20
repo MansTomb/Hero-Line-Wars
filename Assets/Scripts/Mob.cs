@@ -3,7 +3,6 @@ using UnityEngine;
 public class Mob : Unit
 {
     [SerializeField] private Transform finalDestination;
-    
     [SerializeField] private PlayerDetector detector;
     
     [SerializeField] private float attackRadius;
